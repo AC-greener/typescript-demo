@@ -28,51 +28,57 @@ var Calculator = /** @class */ (function () {
         this.container.appendChild(output);
         this.span = span;
     };
+    Calculator.prototype.updateNUmber = function (name, text) {
+        if (this[name]) {
+            this[name] = this[name] + text;
+        }
+        else {
+            this[name] = text;
+        }
+        this.span.textContent = this[name].toString();
+    };
+    Calculator.prototype.updateResult = function () {
+        var n1 = parseFloat(this.n1);
+        var n2 = parseFloat(this.n2);
+        if (this.operator === '+') {
+            this.result = (n1 + n2);
+        }
+        else if (this.operator === '-') {
+            this.result = (n1 - n2);
+        }
+        else if (this.operator === '*') {
+            this.result = (n1 * n2);
+        }
+        else if (this.operator === '/') {
+            this.result = (n1 / n2);
+        }
+        this.n1 = this.result.toString(), this.n2 = undefined, this.operator = null;
+        this.span.textContent = this.result.toString();
+    };
     Calculator.prototype.bindEvents = function () {
         var _this = this;
         this.container.addEventListener('click', function (e) {
             if (e.target instanceof HTMLButtonElement) {
                 var text = e.target.textContent;
-                if ('1234567890'.indexOf(text) >= 0) {
+                if ('1234567890.'.indexOf(text) >= 0) {
                     if (_this.operator) {
-                        if (_this.n2) {
-                            _this.n2 = parseInt(_this.n2.toString() + text);
-                        }
-                        else {
-                            _this.n2 = parseInt(text);
-                        }
-                        _this.span.textContent = _this.n2.toString();
+                        _this.updateNUmber('n2', text);
                     }
                     else {
-                        if (_this.n1) {
-                            _this.n1 = parseInt(_this.n1.toString() + text);
-                        }
-                        else {
-                            _this.n1 = parseInt(text);
-                        }
-                        _this.span.textContent = _this.n1.toString();
+                        _this.updateNUmber('n1', text);
                     }
                 }
                 else if ('+-*/'.indexOf(text) >= 0) {
                     _this.operator = text;
                 }
                 else if ('='.indexOf(text) >= 0) {
-                    if (_this.operator === '+') {
-                        _this.result = (_this.n1 + _this.n2).toString();
-                    }
-                    else if (_this.operator === '-') {
-                        _this.result = (_this.n1 - _this.n2).toString();
-                    }
-                    else if (_this.operator === '*') {
-                        _this.result = (_this.n1 * _this.n2).toString();
-                    }
-                    else if (_this.operator === '/') {
-                        _this.result = (_this.n1 / _this.n2).toString();
-                    }
-                    _this.n1 = parseInt(_this.result), _this.n2 = undefined;
-                    _this.span.textContent = _this.result;
+                    _this.updateResult();
                 }
-                console.log(_this.n1, _this.operator, _this.n2);
+                else if (text = 'clear') {
+                    _this.n1 = null, _this.n2 = null, _this.operator = null, _this.result = null;
+                    _this.span.textContent = '0';
+                }
+                // console.log(this.n1, this.operator, this.n2)
             }
         });
     };

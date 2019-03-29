@@ -4,9 +4,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-.container {
-  
-}
 .calculator button {
   width: 9em;
   height: 3em;
