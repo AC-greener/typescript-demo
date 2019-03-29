@@ -1,22 +1,11 @@
-class Student {
-  fullName: string;
-  constructor(public firstName: string, public middleInitial: string, public lastName: string) {
-      this.fullName = firstName + " " + middleInitial + " " + lastName;
-  }
+#!/usr/bin/env ts-node
+var a:number = parseInt(process.argv[2])
+var b:number = parseInt(process.argv[3])
+
+if(Number.isNaN(a) || Number.isNaN(b)) {
+  console.log("出错啦")
+  process.exit(1)
 }
+console.log(a + b)
+process.exit(0)
 
-interface Person {
-  firstName: string;
-  lastName: string;
-}
-
-function greeter(person : Person) {
-  return "Hello, " + person.firstName + " " + person.lastName;
-}
-
-let user = new Student("Jane", "M.", "User");
-
-document.body.innerHTML = greeter(user);
-
-//typescript compiler
-//为什么要做类型检查？
