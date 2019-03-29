@@ -1,0 +1,23 @@
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  
+}
+.calculator button {
+  width: 9em;
+  height: 3em;
+}
+.calculator button.text-Clear {
+  width: 27em;
+}
+.calculator button.text-0 {
+  width: 18em;
+}
+.calculator .output {
+  border:  1px solid red;
+  height: 5em;
+}
